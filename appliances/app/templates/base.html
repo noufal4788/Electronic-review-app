@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <title>Yachu's EcomStore</title>
+  </head>
+  <body>
+<style>
+  body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background-color: #686f59; /* Light background for the navbar */
+  border-bottom: 1px solid #090808;
+}
+
+.section-navbar {
+  padding: 10px 0;
+}
+
+.top_txt {
+  background-color: #e24343;
+  padding: 5px 0;
+}
+
+.top_txt p {
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+.head_txt {
+  margin-bottom: 10px;
+}
+
+.sign_in_up {
+  text-align: right;
+}
+
+.navbar-brand img {
+  max-width: 180px; /* Set a max width for the logo */
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar li {
+  margin: 0 15px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #d45252;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.navbar a:hover {
+  color: #000000; /* Change color on hover */
+}
+
+.add-to-cart-button {
+  display: flex;
+  align-items: center;
+}
+
+.add-to-cart-button i {
+  font-size: 18px;
+}
+
+.messages {
+  position:top;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+.alert {
+  padding: 10px;
+  margin-top: 20px;
+  border-radius: 5px;
+  color: #fff;
+}
+ 
+
+.alert-success {
+  background-color: #28a745;
+}
+
+.alert-error {
+  background-color: #dc3545;
+}
+
+.alert-info {
+  background-color: #17a2b8;
+}
+
+
+
+</style>
+
+
+
+
+
+  
+  <div class="messages">
+      {% for message in messages %}
+      <div class="alert alert-info alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+  </div>
+  
+
+
+  
+    <header class="section-navbar">
+      
+     
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+          <a class="navbar-brand" href="{% url 'index' %}">
+            <img src="{% static 'images/logo.jpg' %}" alt="Yachu's EcomStore logo" class="logo" />
+          </a>
+          
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">HOME</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">ABOUT</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'products' %}">PRODUCTS</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}">CONTACT</a>
+              </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">LOG OUT</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Log In</a>
+              </li>
+              {% endif %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'addToCart' %}" id="cartValue">
+                  <i class="fa-solid fa-cart-shopping"></i> 0
+                  
+                </a>
+                <br>
+                
+              </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    {% block content %}
+
+    {% endblock %}
+
+    <!-- ========== Start footer Section ========== -->
+    <footer class="section-footer">
+        <div class="footer-container container">
+          <div class="content_1">
+            <img src="{% static 'images/logo.jpg' %}" alt="logo" />
+            <p>
+              Welcome to YACHU'S EcomStore, your ultimate destination for
+              cutting-edge gadgets!
+            </p>
+            <img src="https://i.postimg.cc/Nj9dgJ98/cards.png" alt="cards" />
+          </div>
+          <div class="content_2">
+            <h4>SHOPPING</h4>
+            <a href="#">Computer Store</a>
+            <a href="#">Laptop Store</a>
+            <a href="#">Accessories</a>
+            <a href="#">Sales & Discount</a>
+          </div>
+          <div class="content_3">
+            <h4>Experience</h4>
+            <a href="{% url 'contact' %}">Contact Us</a>
+            <a href="" target="_blank">Payment Method</a>
+            <a href="" target="_blank">Delivery</a>
+            <a href="" target="_blank">Return and Exchange</a>
+          </div>
+          <div class="content_4">
+            <h4>NEWSLETTER</h4>
+            <p>Be the first to know about new<br />arrivals, sales & promos!</p>
+            <div class="f-mail">
+              <input type="email" placeholder="Your Email" />
+              <i class="bx bx-envelope"></i>
+            </div>
+            <hr />
+          </div>
+          <div class="contact-developer">
+            <button onclick="window.location.href='developerContact.html'">Contact 
+          </div>
+        </div>
+        <div class="f-design">
+          <div class="f-design-txt">
+            <p>Design and Code by Noufal P Y</p>
+          </div>
+        </div>
+      </footer>
+  
+      <!-- ========== End footer Section ========== -->
+      <script type="module" src="main.js"></script>
+      <script type="module" src="showAddToCartCards.js"></script>
+      <script>
+        window.onload = function() {
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        const loginButton = document.getElementById('loginButton');
+        const usernameDisplay = document.getElementById('username_login');
+        type="text/javascript">
+    window.addEventListener("beforeunload", function (e) {
+        navigator.sendBeacon("{% url 'auto_logout' %}");
+    });
+      
+        if (loggedInUser) {
+          loginButton.style.display = 'none';
+          usernameDisplay.style.display = 'inline';
+          usernameDisplay.textContent = loggedInUser;
+        } else {
+          loginButton.style.display = 'inline';
+          usernameDisplay.style.display = 'none';
+        }
+      
+        usernameDisplay.addEventListener('click', function() {
+          localStorage.removeItem('loggedInUser');
+          window.location.href = 'index.html';
+        });
+        }
+
+        var idleTime = 0;
+
+    // Increment the idle time counter every minute.
+    var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+
+    // Zero the idle timer on mouse movement, key press, or click.
+    window.onmousemove = window.onkeypress = window.onclick = function() {
+        idleTime = 0;
+    };
+
+    function timerIncrement() {
+        idleTime += 1;
+        if (idleTime > 4) { // 5 minutes (change this value according to your need)
+            window.location.href = "{% url 'logout' %}"; // Redirect to logout URL
+        }
+    }
+      </script>
+  
+    </body>
+  </html>

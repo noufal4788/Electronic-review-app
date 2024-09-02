@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+   
+    <!-- Add a favicon -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom Orange Color Scheme */
+        .btn-primary {
+            background-color: #FFA500; /* Orange color */
+            border-color: #FFA500;
+        }
+        .btn-primary:hover {
+            background-color: #ff8c00; /* Darker orange for hover effect */
+            border-color: #ff8c00;
+        }
+        .btn-secondary {
+            background-color: #FF6347; /* Tomato color for secondary button */
+            border-color: #FF6347;
+        }
+        .btn-secondary:hover {
+            background-color: #e53e30; /* Darker red-orange for hover effect */
+            border-color: #e53e30;
+        }
+        /* Custom Styling */
+        .signup-container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .signup-container h2 {
+            color: #333;
+        }
+        .signup-container label {
+            font-size: 1rem;
+        }
+        .signup-container i {
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body style="background: linear-gradient(to top left, #FFA500, #FF6347);">
+
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="signup-container">
+            <h2 class="text-center mb-4">Sign Up</h2>
+            <form action="{% url 'signup' %}" method="post">
+                {% csrf_token %}
+
+                <!-- Custom Username Field -->
+                <div class="form-group">
+                    <label for="newUsername"><i class="fa fa-user"></i> Username:</label>
+                    <input type="text" id="newUsername" name="username" class="form-control" required>
+                </div>
+
+                <!-- Custom Email Field -->
+                <div class="form-group">
+                    <label for="newEmail"><i class="fa fa-envelope"></i> Email:</label>
+                    <input type="email" id="newEmail" name="email" class="form-control" required>
+                </div>
+
+                <!-- Custom Password Field -->
+                <div class="form-group">
+                    <label for="newPassword"><i class="fa fa-lock"></i> Password:</label>
+                    <input type="password" id="newPassword" name="password1" class="form-control" required>
+                </div>
+
+                <!-- Custom Confirm Password Field -->
+                <div class="form-group">
+                    <label for="confirmPassword"><i class="fa fa-lock"></i> Confirm Password:</label>
+                    <input type="password" id="confirmPassword" name="password2" class="form-control" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                <button type="button" class="btn btn-secondary btn-block mt-2" onclick="goToIndex()">Back</button>
+            </form>
+
+            <p class="text-center mt-3">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+        </div>
+    </div>
+
+    <script>
+        function goToIndex() {
+            window.location.href = "{% url 'index' %}";
+        }
+    </script>
+    
+    <!-- Include Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

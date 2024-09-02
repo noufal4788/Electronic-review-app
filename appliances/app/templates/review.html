@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    
+<h1>View Reviews for {{ product.name }}</h1>
+
+<!-- Display any success or error messages here -->
+ 
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<!-- Display existing reviews -->
+<style>
+    
+    
+
+    h1, h2 {
+        font-family: 'Roboto', sans-serif;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    
+    
+
+    /* Like and Dislike Buttons */
+    .like-dislike-buttons {
+        margin-top: 15px;
+    }
+
+    .like-dislike-buttons button {
+        background-color: #2ecc71;
+        color: white;
+        padding: 8px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+        font-size: 15px;
+        transition: background-color 0.3s ease;
+    }
+
+    .like-dislike-buttons button:hover {
+        background-color: #27ae60;
+    }
+
+    .dislike-button {
+        background-color: #e74c3c;
+    }
+
+    .dislike-button:hover {
+        background-color: #c0392b;
+    }
+
+    .like-count, .dislike-count {
+        font-weight: bold;
+        margin-left: 8px;
+        color: #09549e;
+    }
+
+    /* Review form styling */
+    form {
+        background-color: #ffffff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(250, 249, 249, 0.1);
+        margin-bottom: 25px;
+    }
+
+    form label {
+        display: block;
+        margin-bottom: 10px;
+        color: #2c3e50;
+        font-weight: bold;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    form input, form textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 18px;
+        border: 1px solid #bdc3c7;
+        border-radius: 5px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 15px;
+        background-color: #ecf0f1;
+    }
+
+    form button {
+        background-color: #3498db;
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Roboto', sans-serif;
+        transition: background-color 0.3s ease;
+    }
+
+    form button:hover {
+        background-color: #2980b9;
+    }
+
+    /* Link styling */
+    a {
+        color: #3498db;
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    /* General styles */
+    body {
+        background-color: #ecf0f1;
+        font-family: 'Roboto', sans-serif;
+        color: #2c3e50;
+    }
+
+    p {
+        font-size: 16px;
+        color: #7f8c8d;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+</style>
+
+<h2>Reviews</h2>
+{% if reviews %}
+    <ul>
+        {% for review in reviews %}
+            <li>
+                <strong>{{ review.user.username }}</strong>: {{ review.comment }} <br>
+                <em>Rating: {{ review.rating }} / 5</em>
+                <div class="like-dislike-buttons">
+                    <button class="like-button" data-review-id="{{ review.id }}">
+                        <i class="fa fa-thumbs-up"></i> Like <span class="like-count">{{ review.like_count }}</span>
+                    </button>
+                    <button class="dislike-button" data-review-id="{{ review.id }}">
+                        <i class="fa fa-thumbs-down"></i> Dislike <span class="dislike-count">{{ review.dislike_count }}</span>
+                    </button>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        document.querySelectorAll('.like-button').forEach(button => {
+                            button.addEventListener('click', function() {
+                                const reviewId = this.getAttribute('data-review-id');
+                                fetch(`/like-review/${reviewId}/`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                                    },
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    this.querySelector('.like-count').textContent = data.like_count;
+                                });
+                            });
+                        });
+                
+                        document.querySelectorAll('.dislike-button').forEach(button => {
+                            button.addEventListener('click', function() {
+                                const reviewId = this.getAttribute('data-review-id');
+                                fetch(`/dislike-review/${reviewId}/`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                                    },
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    this.querySelector('.dislike-count').textContent = data.dislike_count;
+                                });
+                            });
+                        });
+                    });
+                </script>
+            </li>
+        {% endfor %}
+    </ul>
+    
+{% else %}
+    <p>No reviews yet. Be the first to write one!</p>
+{% endif %}
+
+<!-- If the user is authenticated, show the review form -->
+{% if user.is_authenticated %}
+    <h2>Write a Review</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit Review</button>
+    </form>
+{% else %}
+    <p>You must <a href="{% url 'login' %}">log in</a> to write a review.</p>
+{% endif %}
+
+{% endblock %}

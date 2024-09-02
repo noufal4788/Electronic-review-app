@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/style_3.css' %}">
+    <!-- Include Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom Orange Color Scheme */
+        .btn-primary {
+            background-color: #FFA500; /* Orange color */
+            border-color: #FFA500;
+        }
+        .btn-primary:hover {
+            background-color: #ff8c00; /* Darker orange for hover effect */
+            border-color: #ff8c00;
+        }
+        .btn-secondary {
+            background-color: #FF6347; /* Tomato color for secondary button */
+            border-color: #FF6347;
+        }
+        .btn-secondary:hover {
+            background-color: #e53e30; /* Darker red-orange for hover effect */
+            border-color: #e53e30;
+        }
+        /* Custom Styling */
+        .signin-container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .signin-container h2 {
+            color: #333;
+        }
+        .signin-container label {
+            font-size: 1rem;
+        }
+        .signin-container i {
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body style="background: linear-gradient(to top left, #FFA500, #FF6347);">
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="signin-container">
+            <h2 class="text-center mb-4">Login</h2>
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary btn-block">Log In</button>
+                <button type="button" class="btn btn-secondary btn-block mt-2" onclick="goToIndex()">Back</button>
+            </form>
+            <p class="text-center mt-3">Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+        </div>
+    </div>
+
+    <script>
+        function goToIndex() {
+            window.location.href = "{% url 'index' %}";
+        }
+    </script>
+    <script type="module" src="{% static 'js/login.js' %}"></script>
+    <!-- Include Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+    <!-- ========== Start Home Hero Section ========== -->
+    
+      <section class="section-hero">
+        <div class="container grid grid-two--cols">
+          <div class="section-hero--content">
+            <p class="hero-subheading">Explore the Latest in Tech Industries</p>
+            <h1 class="hero-heading">
+            Discover the Future of Electronics!
+            </h1>
+            
+            <div class="hero-btn">
+              <a href="{% url 'products' %}" class="btn">Explore Our Products</a>
+            </div>
+          </div>
+          <div
+            class="section-hero-image"
+            data-aos="fade-up"
+            data-aos-delay="600"
+          >
+            <figure>
+              <img
+                src="{% static 'images/heroSection.svg' %}"
+                alt="coding languages using html css js"
+              />
+            </figure>
+          </div>
+        </div>
+        <div class="custom-shape-divider-bottom-1696038172">
+          <svg
+            data-name="Layer 1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+          >
+            
+            
+            
+          </svg>
+        </div>
+      </section>
+    </main>
+    <!-- ========== End Home Hero Section ========== -->
+
+    <!-- ========== Start Extra Product Section ========== -->
+    <section class="section-extra-product">
+      <div class="container grid grid-three--cols">
+        <div class="div-extra grid grid-two--cols">
+          <div class="extra-text">
+            <p>Indipendance Offer</p>
+            <h3>get and extra 50% off ON Laptops</h3>
+            <a href="{% url 'products' %}">Show now</a>
+          </div>
+          <div class="extra-img extra-laptop">
+            <img src="{% static 'images/laptop.png' %}" alt="" />
+          </div>
+        </div>
+
+        <div class="div-extra grid grid-two--cols">
+          <div class="extra-text">
+            <p>Indipendance Offer</p>
+            <h3>40% discount on Mobiles</h3>
+            <a href="{% url 'products' %}">Show now</a>
+          </div>
+          <div class="extra-img">
+            <img src="{% static 'images/iphone.png' %}" alt="" />
+          </div>
+        </div>
+
+        <div class="div-extra grid grid-two--cols">
+          <div class="extra-text">
+            <p>Indipendance Offer</p>
+            <h3>get and extra 50% off</h3>
+            <a href="{% url 'products' %}">Show now</a>
+          </div>
+          <div class="extra-img">
+            <img src="{% static 'images/mobiles.png' %}" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ========== End Extra Product Section ========== -->
+
+    <!-- ========== Start policy ========== -->
+    <section class="section-policy">
+      <div class="container grid grid-four--cols">
+        <div class="div-policy">
+          <div class="icons">
+            <i class="fa-solid fa-truck-fast"></i>
+          </div>
+          <div class="div-policy-text">
+            <p>All India shipping</p>
+            <p>order above ₹1000</p>
+          </div>
+        </div>
+
+        <div class="div-policy">
+          <div class="icons">
+            <i class="fa-solid fa-rotate"></i>
+          </div>
+          <div class="div-policy-text">
+            <p>Easy 30 Day Returns</p>
+            <p>Back Returns in 7 Days</p>
+          </div>
+        </div>
+
+        <div class="div-policy">
+          <div class="icons">
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+          </div>
+          <div class="div-policy-text">
+            <p>money back guarantee</p>
+            <p>guarantee with in 30-Days</p>
+          </div>
+        </div>
+
+        <div class="div-policy">
+          <div class="icons">
+            <i class="fa-solid fa-headset"></i>
+          </div>
+          <div class="div-policy-text">
+            <p>Easy Online Support</p>
+            <p>24/7 Any time support</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ========== End policy ========== -->
+
+    <!-- ========== Start Our Products Section ========== -->
+
+    <section class="section-products container">
+      <div class="">
+        <h2 class="section-common--heading">Checkout yachu's eComStore </h2>
+      </div><br>
+      <p class="hero-para">
+        Welcome to YACHU'S eComStore, your ultimate destination for
+        cutting-edge gadgets! Explore the latest in tech innovation and
+        style with us. Shop now and discover a world of possibilities!
+      </p>
+
+      <section class="container">
+        <div id="productContainer"></div>
+      </section>
+    </section>
+
+    <!-- ========== Start Product Template Section ========== -->
+    <template id="productTemplate">
+      <div class="cards" id="cardValue">
+        <article class="information [card]">
+          <span class="category"></span>
+          <div class="imageContainer">
+            <img class="productImage" src="" alt="" />
+          </div>
+          <h2 class="productName"></h2>
+
+          <div class="productRating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+
+          <p class="productDescription"></p>
+
+          <div class="productPriceElement">
+            <p class="productPrice"></p>
+            <p class="productActualPrice"></p>
+          </div>
+
+          <div class="productStockElement">
+            <p class="productProperty">Total Stocks Available:</p>
+            <p class="productStock"></p>
+          </div>
+
+          <div class="productQuantityElement">
+            <p class="productProperty">Quantity(Pieces)</p>
+            <div class="stockElement">
+              <button class="cartIncrement">+</button>
+              <p class="productQuantity">1</p>
+              <button class="cartDecrement">-</button>
+            </div>
+          </div>
+
+          <button class="add-to-cart-button">
+            <i class="fa-solid fa-cart-shopping"></i> Add To Cart
+          </button>
+        </article>
+      </div>
+    </template>
+
+{% endblock %}

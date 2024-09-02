@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+<div class="product-detail">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <h1>{{ product.name }}</h1>
+
+    <!-- Product details here -->
+    <div class="product-info">
+        <!-- Product information like description, price, etc. -->
+        <p><strong>Description:</strong> {{ product.description }}</p>
+        <!-- Add other product details here -->
+    </div>
+
+    <!-- Link to review form -->
+    <a href="{% url 'product_review' product.id %}" class="btn">View Reviews</a>
+
+    <!-- Reviews section -->
+    <div class="product-reviews">
+        <h2>Reviews</h2>
+        {% if product.reviews.all %}
+            <ul>
+                {% for review in product.reviews.all %}
+                    <li>
+                        <strong>{{ review.user.username }}</strong> - {{ review.rating }} stars
+                        <p>{{ review.comment }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No reviews yet.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
